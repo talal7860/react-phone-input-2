@@ -61,6 +61,7 @@ class PhoneInput extends React.Component {
     onClick: PropTypes.func,
     onKeyDown: PropTypes.func,
     isValid: PropTypes.func,
+    SearchIcon: PropTypes.any,
   }
 
   static defaultProps = {
@@ -86,6 +87,7 @@ class PhoneInput extends React.Component {
     buttonClass: '',
     dropdownClass: '',
     searchClass: '',
+    SearchIcon: null,
 
     autoFormat: true,
     disableAreaCodes: false,
@@ -818,6 +820,8 @@ class PhoneInput extends React.Component {
       'hide': !showDropdown
     });
 
+    const { SearchIcon } = this.props;
+
     return (
       <ul
         ref={el => this.dropdownRef = el}
@@ -832,16 +836,25 @@ class PhoneInput extends React.Component {
             })}
           >
             {!disableSearchIcon &&
-              <span
-                className={classNames({
-                  'search-emoji': true,
-                  [`${searchClass}-emoji`]: searchClass,
-                })}
-                role='img'
-                aria-label='Magnifying glass'
-              >
-                &#128270;
-              </span>}
+              <>
+                {
+                  SearchIcon ? (
+                    <SearchIcon />
+                  ) : (
+                    <span
+                      className={classNames({
+                        'search-emoji': true,
+                        [`${searchClass}-emoji`]: searchClass,
+                      })}
+                      role='img'
+                      aria-label='Magnifying glass'
+                    >
+                      &#128270;
+                    </span>
+                  )
+                }
+              </>
+              }
             <input
               className={classNames({
                 'search-box': true,
